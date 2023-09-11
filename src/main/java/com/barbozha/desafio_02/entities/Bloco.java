@@ -15,20 +15,27 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_bloco")
-public class Bloco implements Serializable{
+public class Bloco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+	// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	//@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	//@Temporal(TemporalType.TIMESTAMP)
+	//@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date inicio;
-	
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	//@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	//@Temporal(TemporalType.TIMESTAMP)
+	//@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date fim;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "atividade_id")
 	private Atividade atividade;
@@ -36,11 +43,12 @@ public class Bloco implements Serializable{
 	public Bloco() {
 	}
 
-	public Bloco(Integer id, Date inicio, Date fim) {
+	public Bloco(Integer id, Date inicio, Date fim, Atividade atividade) {
 		super();
 		this.id = id;
 		this.inicio = inicio;
 		this.fim = fim;
+		this.atividade = atividade;
 	}
 
 	public Integer getId() {
@@ -65,6 +73,14 @@ public class Bloco implements Serializable{
 
 	public void setFim(Date fim) {
 		this.fim = fim;
+	}
+
+	public Atividade getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(Atividade atividade) {
+		this.atividade = atividade;
 	}
 
 	@Override

@@ -14,22 +14,20 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "tb_participante")
-public class Participante implements Serializable{
+public class Participante implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
-	
-	
+
 	@ManyToMany
-	@JoinTable(name = "tb_participante_atividade", joinColumns = @JoinColumn(name = "participante_id"),inverseJoinColumns = @JoinColumn(name = "atividades_id"))
+	@JoinTable(name = "tb_participante_atividade", joinColumns = @JoinColumn(name = "participante_id"), inverseJoinColumns = @JoinColumn(name = "atividades_id"))
 	private Set<Atividade> atividades = new HashSet<>();
 
 	public Participante() {
@@ -64,6 +62,10 @@ public class Participante implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Atividade> getAtividades() {
+		return atividades;
 	}
 
 	@Override
